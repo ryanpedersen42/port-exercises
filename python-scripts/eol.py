@@ -56,20 +56,18 @@ for d in DATA_RESP['entities']:
     # url = f'{API_URL}/blueprints/{blueprint_id}/entities/{entity_identifier}/{state}'
 
 entity_json = {
-    'identifier': 'ex2', # hard code for now
-    'title': 'ex2', # hard code for now
+    'identifier': 'ex2',
     'properties': {
         'number_of_eol_packages': count
     },
-    'relations': {}
 }
 print(count)
 url = f'{API_URL}/blueprints/{blueprint_id}/entities/?upsert=true'
 update_query = requests.post(url, json=entity_json, headers=headers) # put or post option??
+update_packages = requests.post(f'https://api.getport.io/v1/blueprints/repository/entities?upsert=true', json=entity_json, headers=headers)
 
 # parse response here
-print(update_query.json())
+# print(update_query.json())
 
-
-
-
+update_packages.json()
+print(update_packages.json())
