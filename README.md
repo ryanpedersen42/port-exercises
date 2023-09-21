@@ -55,6 +55,7 @@
 
 * I was delighted by the Github App and the rich data that I was able to ingest at the click of a button.
 * Bash script that runs the jq queries on `package.json` is under `bash-scripts/check-packages.sh`. Simple iteration that gets the job done.
+* Not a snag here, but I noticed when I changed the name of the identifier, it gives me a 404. Would be nice to get a redirect back to Service so I'm not stuck :) 
 
 **Snags**
 
