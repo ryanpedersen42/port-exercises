@@ -1,0 +1,37 @@
+name: Check Packages
+on: 
+  schedule:
+    - cron: "0 1 * * *"
+
+jobs:
+  Push-to-Port:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install jq
+        uses: dcarbone/install-jq-action@v2.0.0
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.5'
+      - name: Check PRs
+        run: |
+          pr_request=$( curl --request GET --url https://api.github.com/repos/ryanpedersen42/${{ github.repository }}/pulls --header "Authorization: Bearer ${{ secrets.API_TOKEN_GH }}" | jq length )
+          echo "there are $pr_request requests"
+          echo "PR_COUNT=$( curl --request GET --url https://api.github.com/repos/ryanpedersen42/${{ github.repository }}/pulls --header "Authorization: Bearer ${{ secrets.API_TOKEN_GH }}" | jq length )" >> $GITHUB_ENV
+          pip install requests
+          python reqgh.py $pr_request ${{ secrets.PORT_CLIENT_ID }} ${{ secrets.PORT_CLIENT_SECRET }}
+      - name: Port API 
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: UPSERT
+          identifier: ex2
+          title: ${{ github.repository }}
+          blueprint: repository
+          properties: |-
+            {
+              "pull_requests_open": ${{ env.PR_COUNT }}
+            }

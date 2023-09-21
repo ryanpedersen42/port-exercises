@@ -1,0 +1,62 @@
+name: Check Packages
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  Push-to-Port:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install jq
+        uses: dcarbone/install-jq-action@v2.0.0
+      - name: Check Axios
+        run: |
+          check_axios_presence_deps=`cat package.json | jq .dependencies | jq keys`
+          check_axios_presence_dev_deps=`cat package.json | jq .devDependencies | jq keys`
+
+          echo $check_axios_presence_deps
+          echo $check_axios_presence_dev_deps
+
+          if [[ $check_axios_presence_deps[@] =~ "axios" ]] || [[ $check_axios_presence_dev_deps[@] =~ "axios" ]];
+          then
+              axios=true        
+          else
+              axios=false
+          fi
+
+          echo $axios
+          echo "AXIOS=$axios" >> $GITHUB_ENV
+      - name: Check Lodash
+        run: |
+          check_lodash_presence_deps=`cat package.json | jq .dependencies | jq keys`
+          check_lodash_presence_dev_deps=`cat package.json | jq .devDependencies | jq keys`
+
+          echo $check_lodash_presence_deps
+          echo $check_lodash_presence_dev_deps
+
+          if [[ $check_lodash_presence_deps[@] =~ "lodash" ]] || [[ $check_lodash_presence_dev_deps[@] =~ "lodash" ]];
+          then
+              lodash=true        
+          else
+              lodash=false
+          fi
+
+          echo $lodash
+          echo "LODASH=$lodash" >> $GITHUB_ENV
+      - name: Port API 
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: UPSERT
+          identifier: ex4
+          title: ${{ github.repository }}
+          blueprint: repository
+          properties: |-
+            {
+              "uses_lodash_": ${{ env.LODASH }},
+              "uses_axios_": ${{ env.AXIOS }}
+            }

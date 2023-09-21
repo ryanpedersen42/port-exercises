@@ -1,0 +1,96 @@
+{
+    "identifier": "repository",
+    "title": "Microservice",
+    "icon": "Github",
+    "schema": {
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "url": {
+          "title": "URL",
+          "format": "url",
+          "type": "string"
+        },
+        "readme": {
+          "title": "README",
+          "type": "string",
+          "format": "markdown",
+          "icon": "Book"
+        },
+        "language": {
+          "type": "string",
+          "title": "Language"
+        },
+        "type": {
+          "title": "Type",
+          "description": "The type of microservice",
+          "type": "string",
+          "enum": [
+            "Service",
+            "Library",
+            "Website"
+          ],
+          "enumColors": {
+            "Service": "blue",
+            "Library": "green",
+            "Website": "pink"
+          }
+        },
+        "pull_requests_open": {
+          "title": "Pull Requests Open",
+          "description": "How many pull requests are open?",
+          "icon": "GitPullRequest",
+          "type": "number"
+        },
+        "uses_lodash_": {
+          "title": "Uses Lodash?",
+          "type": "boolean",
+          "description": "Is the Lodash package being used?"
+        },
+        "uses_axios_": {
+          "title": "Uses Axios?",
+          "type": "boolean",
+          "description": "Is Axios being used?"
+        },
+        "number_of_eol_packages": {
+          "title": "Number of EOL Packages",
+          "type": "number",
+          "icon": "Book"
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {
+      "version": {
+        "path": "packages.version"
+      },
+      "lodash": {
+        "path": "packages.lodash"
+      },
+      "axios": {
+        "path": "packages.axios"
+      }
+    },
+    "calculationProperties": {},
+    "relations": {
+      "framework": {
+        "title": "Framework",
+        "target": "framework",
+        "required": false,
+        "many": true
+      },
+      "tree": {
+        "title": "Tree",
+        "target": "tree",
+        "required": false,
+        "many": true
+      },
+      "packages": {
+        "target": "packages",
+        "required": true,
+        "many": false
+      }
+    }
+  }

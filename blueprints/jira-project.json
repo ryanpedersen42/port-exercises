@@ -1,0 +1,20 @@
+{
+    "identifier": "project",
+    "description": "A Jira project",
+    "title": "Jira Project",
+    "icon": "Jira",
+    "schema": {
+      "properties": {
+        "url": {
+          "title": "Project URL",
+          "type": "string",
+          "format": "url",
+          "description": "URL to the project in Jira"
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {},
+    "calculationProperties": {},
+    "relations": {}
+  }

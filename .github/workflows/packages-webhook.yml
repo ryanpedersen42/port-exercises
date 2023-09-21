@@ -1,0 +1,28 @@
+name: Check Packages
+on:
+  push:
+    branches:
+      - main
+      - axios-only
+env:
+  SERVICE_ID: ${{ vars.SERVICE_ID }}
+  PATH_TO_PACKAGE_JSON_FILE: ${{ vars.PATH_TO_PACKAGE_JSON_FILE }}
+  WEBHOOK_URL: ${{ vars.WEBHOOK_URL }}
+
+jobs:
+  Ingest-Webhook-to-Port:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install jq
+        uses: dcarbone/install-jq-action@v2.0.0
+      # - name: Run Ingestion
+      #   run:
+      #     shell: sh
+      #     working-directory: ./scripts
+      - name: Ingest it all
+        run: |
+          ls
+          chmod u+x ./ingest.sh
+          sh ./ingest.sh

@@ -1,0 +1,26 @@
+{
+    "identifier": "packages",
+    "description": "This blueprint represents a software package file in our catalog",
+    "title": "Package",
+    "icon": "Package",
+    "schema": {
+      "properties": {
+        "version": {
+          "type": "string",
+          "title": "Depedency Version"
+        },
+        "lodash": {
+          "title": "Lodash",
+          "type": "boolean"
+        },
+        "axios": {
+          "title": "Axios",
+          "type": "boolean"
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {},
+    "calculationProperties": {},
+    "relations": {}
+  }

@@ -1,0 +1,86 @@
+{
+    "identifier": "pullRequest",
+    "title": "Pull Request",
+    "schema": {
+      "properties": {
+        "creator": {
+          "title": "Creator",
+          "type": "string"
+        },
+        "assignees": {
+          "title": "Assignees",
+          "type": "array"
+        },
+        "reviewers": {
+          "title": "Reviewers",
+          "type": "array"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "merged",
+            "open",
+            "closed"
+          ],
+          "enumColors": {
+            "merged": "purple",
+            "open": "green",
+            "closed": "red"
+          }
+        },
+        "createdAt": {
+          "title": "Created At",
+          "type": "string",
+          "format": "date-time"
+        },
+        "closedAt": {
+          "title": "Closed At",
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "title": "Updated At",
+          "type": "string",
+          "format": "date-time"
+        },
+        "mergedAt": {
+          "title": "Merged At",
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "format": "markdown"
+        },
+        "link": {
+          "format": "url",
+          "type": "string"
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {},
+    "calculationProperties": {
+      "cycle_time": {
+        "title": "Cycle Time",
+        "icon": "DefaultProperty",
+        "calculation": ".properties.createdAt as $date1 | .properties.closedAt as $date2 | ($date2 | split(\".\")[0] + \"Z\" | fromdate) - ($date1 | split(\".\")[0] + \"Z\" | fromdate) | \"\\(. / 86400|floor)d \\(((. % 86400) / 3600 | floor))Hr \\((((. % 86400) % 3600) / 60) | floor)min\"",
+        "type": "string"
+      },
+      "cycle_time_in_minutes": {
+        "title": "Cycle Time In Minutes",
+        "icon": "DefaultProperty",
+        "calculation": ".properties.createdAt as $date1 | .properties.closedAt as $date2 | ($date2 | split(\".\")[0] + \"Z\" | fromdate) - ($date1 | split(\".\")[0] + \"Z\" | fromdate) | . / 60 | floor",
+        "type": "number"
+      }
+    },
+    "relations": {
+      "repository": {
+        "target": "repository",
+        "required": true,
+        "many": false
+      }
+    }
+  }

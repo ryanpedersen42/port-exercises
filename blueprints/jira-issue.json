@@ -1,0 +1,126 @@
+{
+    "identifier": "issue",
+    "title": "Jira Issue",
+    "icon": "Jira",
+    "teamInheritance": {
+      "path": "component_relation"
+    },
+    "schema": {
+      "properties": {
+        "url": {
+          "title": "Issue URL",
+          "type": "string",
+          "format": "url",
+          "description": "URL to the issue in Jira",
+          "icon": "DefaultProperty"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "description": "The status of the issue",
+          "icon": "DefaultProperty"
+        },
+        "issueType": {
+          "title": "Type",
+          "type": "string",
+          "description": "The type of the issue",
+          "icon": "DefaultProperty"
+        },
+        "components": {
+          "items": {
+            "type": "object"
+          },
+          "title": "Components",
+          "description": "The components related to this issue",
+          "icon": "DefaultProperty",
+          "type": "array"
+        },
+        "assignee": {
+          "title": "Assignee",
+          "type": "string",
+          "format": "user",
+          "description": "The user assigned to the issue",
+          "icon": "DefaultProperty"
+        },
+        "reporter": {
+          "title": "Reporter",
+          "type": "string",
+          "description": "The user that reported to the issue",
+          "format": "user",
+          "icon": "DefaultProperty"
+        },
+        "creator": {
+          "title": "Creator",
+          "type": "string",
+          "description": "The user that created to the issue",
+          "format": "user",
+          "icon": "DefaultProperty"
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {
+      "new_relic_account": {
+        "path": "component_relation.account_id"
+      },
+      "new_relic_identifier": {
+        "path": "component_relation.$identifier"
+      },
+      "tags": {
+        "path": "component_relation.tags"
+      },
+      "title": {
+        "title": "Title",
+        "path": "component_relation.$title"
+      }
+    },
+    "calculationProperties": {
+      "my_component": {
+        "title": "My Component(s)",
+        "icon": "DefaultProperty",
+        "calculation": ".properties.components | [.[].name]",
+        "type": "array",
+        "colors": {
+          "options": [
+            {
+              "color": "turquoise",
+              "value": "New Relic Node"
+            },
+            {
+              "color": "purple",
+              "value": "Python"
+            }
+          ],
+          "itemsType": "string"
+        }
+      }
+    },
+    "relations": {
+      "parentIssue": {
+        "title": "Parent Issue",
+        "target": "issue",
+        "required": false,
+        "many": false
+      },
+      "component_relation": {
+        "title": "Component Relation",
+        "description": "Relating issues to running Service",
+        "target": "newRelicService",
+        "required": false,
+        "many": false
+      },
+      "project": {
+        "title": "Project",
+        "description": "The Jira project that contains this issue",
+        "target": "project",
+        "required": false,
+        "many": false
+      },
+      "subtasks": {
+        "title": "Subtasks",
+        "target": "issue",
+        "required": false,
+        "many": true
+      }
+    }
+  }

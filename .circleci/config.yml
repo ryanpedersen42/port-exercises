@@ -1,0 +1,27 @@
+version: 2.1
+
+executors:
+  python:
+    docker:
+      - image: cimg/python:3.11.5
+
+jobs:
+  check_prs:
+    executor: python
+    steps:
+      - checkout
+      - run: 
+          name: Check PRs
+          command: |
+            pr_request=$( curl --request GET --url https://api.github.com/repos/ryanpedersen42/${CIRCLE_PROJECT_REPONAME}/pulls --header "Authorization: Bearer $GITHUB_API_TOKEN" | jq length )
+            echo "there are $pr_request requests"
+            pip install requests
+            python req.py $pr_request
+
+workflows:
+  main:
+    jobs:
+      - check_prs:
+          context:
+            - github
+            - port

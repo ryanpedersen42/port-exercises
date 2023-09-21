@@ -1,0 +1,71 @@
+{
+    "identifier": "newRelicAlert",
+    "description": "This blueprint represents a New Relic alert in our software catalog",
+    "title": "New Relic Alert",
+    "icon": "NewRelic",
+    "schema": {
+      "properties": {
+        "priority": {
+          "type": "string",
+          "title": "Priority",
+          "enum": [
+            "CRITICAL",
+            "HIGH",
+            "MEDIUM",
+            "LOW"
+          ],
+          "enumColors": {
+            "CRITICAL": "red",
+            "HIGH": "red",
+            "MEDIUM": "yellow",
+            "LOW": "green"
+          }
+        },
+        "state": {
+          "type": "string",
+          "title": "State",
+          "enum": [
+            "ACTIVATED",
+            "CLOSED",
+            "CREATED"
+          ],
+          "enumColors": {
+            "ACTIVATED": "yellow",
+            "CLOSED": "green",
+            "CREATED": "lightGray"
+          }
+        },
+        "trigger": {
+          "type": "string",
+          "title": "Trigger"
+        },
+        "sources": {
+          "type": "array",
+          "title": "Sources"
+        },
+        "alertPolicyNames": {
+          "type": "array",
+          "title": "Alert Policy Names"
+        },
+        "conditionName": {
+          "type": "array",
+          "title": "Condition Name"
+        },
+        "activatedAt": {
+          "type": "string",
+          "title": "Time Issue was activated"
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {},
+    "calculationProperties": {},
+    "relations": {
+      "newRelicService": {
+        "title": "New Relic Service",
+        "target": "newRelicService",
+        "required": false,
+        "many": true
+      }
+    }
+  }

@@ -1,0 +1,25 @@
+{
+    "identifier": "framework",
+    "title": "Framework",
+    "icon": "Apps",
+    "schema": {
+      "properties": {
+        "state": {
+          "title": "State",
+          "type": "string",
+          "enum": [
+            "Active",
+            "EOL"
+          ],
+          "enumColors": {
+            "Active": "green",
+            "EOL": "red"
+          }
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {},
+    "calculationProperties": {},
+    "relations": {}
+  }
